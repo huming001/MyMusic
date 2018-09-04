@@ -1,11 +1,11 @@
 package com.example.administrator.mymusic;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -27,8 +27,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.localmusic:
-                Toast ts = Toast.makeText(this,"吐司",Toast.LENGTH_LONG);
-                ts.show();
+                Intent intent = new Intent(MainActivity.this, LocalMusicActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;
