@@ -33,7 +33,7 @@ public class FindMusic {
                 music.setArtist(artist);
                 music.setDuration(duration);
                 music.setUrl(url);
-                //  music.setAlbum_id(album_id);
+                music.setAlbum_id(album_id);
                 musics.add(music);
             }
         }
