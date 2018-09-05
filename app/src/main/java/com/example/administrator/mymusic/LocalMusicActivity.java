@@ -48,6 +48,8 @@ public class LocalMusicActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager
                 .LayoutParams.FLAG_FULLSCREEN);
 
+        Intent intent = new Intent(this, MusicService.class);
+        bindService(intent, conn, Context.BIND_AUTO_CREATE);
 
         listView = (ListView) findViewById(R.id.listView);
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {

@@ -84,7 +84,8 @@ public class MusicService extends Service {
         Intent intent1 = new Intent("playimage");
         sendBroadcast(intent1);
 
-
+        handler.sendEmptyMessage(SET_SEEKBAR_MAX);
+        handler.sendEmptyMessage(UPDATE_PROGRESS);
     }
 
     private Handler handler = new Handler() {
@@ -92,8 +93,16 @@ public class MusicService extends Service {
         public void handleMessage(Message message) {
             switch (message.what) {
                 case UPDATE_PROGRESS:
+                    Intent intent = new Intent("seekbarprogress");
+                    intent.putExtra("seekbarprogress", mediaPlayer.getCurrentPosition());
+                    sendBroadcast(intent);
+
+                    handler.sendEmptyMessageDelayed(UPDATE_PROGRESS, 1000);
                     break;
                 case SET_SEEKBAR_MAX:
+                    intent = new Intent("seekbarmaxprogress");
+                    intent.putExtra("seekbarmaxprogress", mediaPlayer.getDuration());
+                    sendBroadcast(intent);
                     break;
                 default:
                     break;
@@ -105,7 +114,7 @@ public class MusicService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         if ("startNew".equals(intent.getAction())) {
             try {
-                Toast.makeText(getApplicationContext(), intent.getStringExtra("titel"), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), intent.getStringExtra("title"), Toast.LENGTH_SHORT).show();
 
                 startNew(intent.getStringExtra("url"));
 
@@ -124,5 +133,13 @@ public class MusicService extends Service {
         }
 
         return super.onStartCommand(intent, flags, startId);
+    }
+
+    @Override
+    public void onDestroy() {
+        mediaPlayer.stop();
+        mediaPlayer.release();
+        mediaPlayer = null;
+        super.onDestroy();
     }
 }
