@@ -5,9 +5,9 @@ package com.example.administrator.mymusic;
  */
 
 public class Music {
-    private int id;
-    private long album_id;
-    private String title;
+    private int id;//id
+    private long album_id;//
+    private String title;//歌曲名
     private String artist;
     private long duration;
     private String url;
