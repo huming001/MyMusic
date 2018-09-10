@@ -31,6 +31,8 @@ public class MusicService extends Service {
     }
 
     public MusicService() {
+        Log.e("HM", "musicService 构造方法");
+
     }
 
     @Override
@@ -38,10 +40,14 @@ public class MusicService extends Service {
         super.onCreate();
 
         mediaPlayer = new MediaPlayer();
+
+        Log.e("HM", "musicService 被创建");
     }
 
     @Override
     public IBinder onBind(Intent intent) {
+        Log.e("HM", "musicService 被绑定");
+
         myBinder = new MyBinder();
         return myBinder;
     }
@@ -112,6 +118,8 @@ public class MusicService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.e("HM", "musicService 开始");
+
         if ("startNew".equals(intent.getAction())) {
             try {
                 Toast.makeText(getApplicationContext(), intent.getStringExtra("title"), Toast.LENGTH_SHORT).show();
@@ -137,6 +145,8 @@ public class MusicService extends Service {
 
     @Override
     public void onDestroy() {
+        Log.e("HM", "musicService 被销毁");
+
         mediaPlayer.stop();
         mediaPlayer.release();
         mediaPlayer = null;
